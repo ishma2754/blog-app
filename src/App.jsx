@@ -16,7 +16,7 @@ function App() {
         if (userData) {
           dispatch(login({ userData }));
         } else {
-          dispatch(logout());
+          dispatch(logout()); //atleast our state is updated , logout
         }
       })
       .finally(() => setLoading(false));
@@ -32,7 +32,7 @@ function App() {
         <Footer/>
       </div>
     </div>
-  ) : null;
+  ) : <div>....Loading</div>; //null is to display nothing
 }
 
 export default App;

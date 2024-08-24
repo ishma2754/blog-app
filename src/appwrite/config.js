@@ -66,6 +66,8 @@ export class Service {
     }
   }
 
+
+  //get document
   async getPost(slug) {
     try {
       return await this.databases.getDocument(
@@ -79,6 +81,8 @@ export class Service {
     }
   }
 
+
+  //list documents in appwrite
   async getPosts(queries = [Query.equal("status", "active")]) {
     try {
       return await this.databases.listDocuments(
@@ -98,20 +102,24 @@ export class Service {
   }
 
   //file upload service
-  async uploadFile(file) {
+  //Create file  appwrite
+  //upload file 
+  //THIS IS RELATED TO BUCKET BUT IN APPWRITE === STORAGE
+
+  async uploadFile(file) { ///PASS FILE
     try {
       return await this.bucket.createFile(
         conf.appwriteBucketId,
         ID.unique(),
-        file
+        file ///IN APPWRITE ==== document.getElementById('uploader').files[0]
       );
     } catch (error) {
       console.log("Appwrite Service :: uploadFile :: error", error);
-      return false;
+      return false; ///////////
     }
   }
 
-  async deleteFile(fileId) {
+  async deleteFile(fileId) { ///PASS FILEID
     try {
       return await this.bucket.deleteFile(conf.appwriteBucketId, fileId);
     } catch (error) {
@@ -120,7 +128,7 @@ export class Service {
     }
   }
 
-
+//Get file preview //gives url directly
   getFilePreview(fileId){
     return this.bucket.getFilePreview(
       conf.appwriteBucketId,
