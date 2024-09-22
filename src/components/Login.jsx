@@ -37,7 +37,7 @@ function Login() {
             <Logo width="100%" />
           </span>
         </div>
-        <h2 className="text-center text-2xl font-bold landing-tight">
+        <h2 className="text-center text-2xl font-bold leading-tight">
           Sign in to your account
         </h2>
         <p className="mt-2 text-center text-base text-black/60">
@@ -84,3 +84,73 @@ function Login() {
 }
 
 export default Login;
+
+
+/*
+Imagine a user wants to log into an application using their email and password. Here's how the login function processes this:
+
+User Input:
+
+The user enters their email and password into the login form and submits it.
+For instance, the user provides the following credentials:
+Email: johndoe@example.com
+Password: securepassword123
+Function Call:
+
+The login function is called with the user’s credentials.
+
+
+1. SETERROR  ======> If there was a previous login attempt that failed and showed an error, this line ensures that error message is cleared before trying to log in again.
+
+2. const session = await authService.login(data);
+
+authService.login(data) sends a request to Appwrite’s authentication service to create a session for the user.
+For the credentials provided (johndoe@example.com and securepassword123), Appwrite checks if they match a registered user and creates a session if they do.
+Appwrite Context:
+
+Appwrite’s createEmailSession method is used here. If the login is successful, Appwrite returns a session object (e.g., { sessionId: "abc123", userId: "user123" }).
+
+
+3. if (session) {
+  const userData = await authService.getCurrentUser();
+
+authService.getCurrentUser() requests the user’s profile information from Appwrite.
+For the logged-in user, Appwrite returns user data (e.g., { userId: "user123", email: "johndoe@example.com", name: "John Doe" }).
+Appwrite Context:
+
+Appwrite’s get() method on the Account class retrieves the profile details of the currently authenticated user.
+
+4. if (userData) dispatch(authLogin(userData));
+
+dispatch(authLogin(userData)) sends an action to the Redux store to set the user as logged in.
+Redux updates its state to reflect that the user is now authenticated and stores the user’s data.
+Redux Context:
+
+The authLogin action is defined in the Redux slice and updates the authentication state (status set to true and userData populated with the user’s profile).
+
+5.  navigate("/");
+After a successful login, it takes the user to the main page of the application.
+React Router Context:
+
+navigate("/") uses the useNavigate hook from react-router-dom to programmatically change the route to the home page.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
